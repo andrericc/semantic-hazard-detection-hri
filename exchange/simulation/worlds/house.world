@@ -1,0 +1,645 @@
+<sdf version='1.7'>
+  <world name='house'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <gravity>0 0 -9.81</gravity>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <!-- Exposes /gazebo/set_entity_state, used by sim.launch.py to move TIAGo inside the house -->
+    <plugin name='gazebo_ros_state' filename='libgazebo_ros_state.so'>
+      <ros>
+        <namespace>/gazebo</namespace>
+      </ros>
+      <update_rate>1.0</update_rate>
+    </plugin>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_north'>
+      <static>1</static>
+      <pose>10 8 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>12 0.15 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>12 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_south'>
+      <static>1</static>
+      <pose>10 -4 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>12 0.15 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>12 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_east'>
+      <static>1</static>
+      <pose>16 2 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>0.15 12 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>0.15 12 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_west_s'>
+      <static>1</static>
+      <pose>4 -2.85 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>0.15 2.3 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>0.15 2.3 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_west_m'>
+      <static>1</static>
+      <pose>4 2 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>0.15 4.6 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>0.15 4.6 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_west_n'>
+      <static>1</static>
+      <pose>4 6.85 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>0.15 2.3 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>0.15 2.3 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_h_1'>
+      <static>1</static>
+      <pose>5.15 2 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>2.3 0.15 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>2.3 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_h_2'>
+      <static>1</static>
+      <pose>10 2 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>4 0.15 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>4 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_h_3'>
+      <static>1</static>
+      <pose>14.85 2 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>2.3 0.15 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>2.3 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='wall_v'>
+      <static>1</static>
+      <pose>10 5 1.25 0 -0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>0.15 6 2.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>0.15 6 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.95 0.92 0.85 1</ambient>
+            <diffuse>0.95 0.92 0.85 1</diffuse>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <audio>
+      <device>default</device>
+    </audio>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <!-- ══════════════════════════════════════════════════════════════════
+         Room semantics (walls unchanged, matching nav_client.WORLD_WAYPOINTS):
+           living_room : south zone,      x in [4,12],  y in [-4,2]
+           bathroom    : south-east nook, x in [12,16], y in [-4,0.5]
+           bedroom     : north-west room, x in [4,10],  y in [2,8]
+           kitchen     : north-east room, x in [10,16], y in [2,8]
+         ══════════════════════════════════════════════════════════════════ -->
+    <!-- Living room: TIAGo is teleported to (6.5,-1) facing +x, so this
+         furniture group is right in front of its camera -->
+    <include>
+      <uri>model://table_0m8</uri>
+      <name>demo_table</name>
+      <pose>9.0 -1.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://cocacola</uri>
+      <name>demo_coke</name>
+      <pose>8.9 -0.8 0.82 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://pringles</uri>
+      <name>demo_pringles</name>
+      <pose>9.15 -1.25 0.82 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://dining_chair</uri>
+      <name>demo_chair</name>
+      <pose>10.1 -1.0 0 0 0 3.14</pose>
+    </include>
+    <include>
+      <uri>model://sofa</uri>
+      <name>demo_sofa</name>
+      <pose>11.5 -3.0 0 0 0 1.57</pose>
+    </include>
+    <include>
+      <uri>model://table_0m8</uri>
+      <name>demo_tv_table</name>
+      <pose>11.5 1.3 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://tv</uri>
+      <name>demo_tv</name>
+      <pose>11.5 1.3 0.82 0 0 -1.57</pose>
+    </include>
+    <include>
+      <uri>model://reemc_bookshelf</uri>
+      <name>bookshelf_south</name>
+      <pose>5.5 -3.5 0 0 0 0</pose>
+    </include>
+    <!-- Laptop (GSO scan, COCO 'laptop') on the demo table, next to coke/pringles;
+         table_0m8 top is 1.0x0.8 centred at (9,-1), surface z=0.815 -->
+    <include>
+      <uri>model://laptop</uri>
+      <name>demo_laptop</name>
+      <pose>8.65 -1.1 0.815 0 0 0.5</pose>
+    </include>
+
+    <!-- Kitchen (north-east room) -->
+    <include>
+      <uri>model://kitchen_table</uri>
+      <name>kitchen_table_ne</name>
+      <pose>13 5.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://oven</uri>
+      <name>kitchen_oven</name>
+      <pose>13.5 4.2 0 0 0 1.57</pose>
+    </include>
+    <!-- Refrigerator (AWS, COCO 'refrigerator') against the east wall, door facing west -->
+    <include>
+      <uri>model://aws_robomaker_residential_Refrigerator_01</uri>
+      <name>kitchen_fridge</name>
+      <pose>15.4 3.0 0 0 0 3.14159</pose>
+    </include>
+    <!-- Mug (GSO scan, COCO 'cup') on the kitchen table; table top z=0.66 -->
+    <include>
+      <uri>model://mug</uri>
+      <name>kitchen_mug</name>
+      <pose>12.85 5.2 0.66 0 0 0</pose>
+    </include>
+
+    <!-- Bedroom (north-west room) -->
+    <include>
+      <uri>model://floor_lamp</uri>
+      <name>lamp_nw</name>
+      <pose>4.7 7.3 0 0 0 0</pose>
+    </include>
+    <!-- Double bed (AWS, COCO 'bed') against the north wall; footprint ~2.0x2.0 -->
+    <include>
+      <uri>model://aws_robomaker_residential_Bed_01</uri>
+      <name>bedroom_bed</name>
+      <pose>6.5 6.7 0 0 0 0</pose>
+    </include>
+    <!-- Teddy bear (GSO scan, COCO 'teddy bear') lying on the mattress.
+         z = mattress top: verify visually in Gazebo and tune (model is static) -->
+    <include>
+      <uri>model://teddy_bear</uri>
+      <name>bedroom_teddy</name>
+      <pose>6.5 6.0 0.63 0 0 -1.57</pose>
+    </include>
+
+    <!-- Bathroom (south-east nook) -->
+    <!-- Toilet (Fuel/OpenRobotics, COCO 'toilet') against the east wall, facing west -->
+    <include>
+      <uri>model://Toilet</uri>
+      <name>bathroom_toilet</name>
+      <pose>15.5 -2.5 0 0 0 3.14159</pose>
+    </include>
+    <!-- Counter box + sink (Fuel/OpenRobotics BathroomSink, COCO 'sink') -->
+    <model name='bathroom_counter'>
+      <static>1</static>
+      <pose>15.55 -0.9 0.375 0 0 0</pose>
+      <link name='link'>
+        <collision name='c'>
+          <geometry>
+            <box>
+              <size>0.7 0.6 0.75</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='v'>
+          <geometry>
+            <box>
+              <size>0.7 0.6 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.85 0.85 0.88 1</ambient>
+            <diffuse>0.85 0.85 0.88 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <uri>model://BathroomSink</uri>
+      <name>bathroom_sink</name>
+      <pose>15.55 -0.9 0.75 0 0 3.14159</pose>
+    </include>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-0.046991 -15.497 41.8778 -0 1.15964 0.445</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

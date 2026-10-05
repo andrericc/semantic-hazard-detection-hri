@@ -1,0 +1,25 @@
+[workspace]
+channels = [
+    "https://prefix.dev/pixi-build-backends",
+    "https://prefix.dev/conda-forge",
+    "https://prefix.dev/spqr",
+    "robostack-staging"
+]
+platforms = ["linux-64", "linux-aarch64"]
+preview = ["pixi-build"]
+
+[package]
+name = "simbridge"
+version = "0.1.0"
+description = "SPQR Booster SDK with ROS2 interface and locomotion control"
+
+[package.build]
+backend = { name = "pixi-build-rattler-build", version = "*" }
+
+[dependencies]
+simbridge = {path = "."}
+msgpack-cxx = "*"
+libboost = "*"                # ← ADD
+
+[tasks]
+main = "simbridge_node"

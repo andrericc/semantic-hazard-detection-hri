@@ -1,0 +1,35 @@
+model {
+  file: "model.sdf"
+}
+name: "Lovable_Huggable_Cuddly_Boutique_Teddy_Bear_Beige"
+description: "Lovable Huggable Cuddly Boutique Teddy Bear Beige"
+version: 1
+authors {
+  name: "Google"
+  email: "scanned-objects@google.com"
+}
+legal {
+  copyright: "Copyright 2020 Google LLC."
+  license: "Creative Commons Attribution 4.0 International"
+}
+annotations {
+  key: "brand"
+  value: "Wal-Mart"
+}
+annotations {
+  key: "gtin"
+  value: "047475350964"
+}
+annotations {
+  key: "sku"
+  value: "G486"
+}
+compatibilities {
+  name: "Gazebo"
+  version {
+    major: 11
+  }
+}
+categories {
+  first: "Stuffed Toys"
+}
