@@ -2,10 +2,11 @@
 
 **A TIAGo robot that refuses dangerous commands.** Before it executes a request like *"put the hair dryer in the bathtub"*, the robot inserts the action into a 3D scene graph of the room and scores it with a graph autoencoder trained only on safe interactions. Then it executes the action, asks for confirmation, or refuses and explains why.
 
-<!-- TODO: replace with a GIF or a link to a demo video of the robot -->
 <p align="center">
-  <img src="docs/demo.gif" alt="TIAGo demo" width="640"/>
+  <img src="docs/demo.gif" alt="TIAGo answering the same request differently for a child and an adult" width="280"/>
 </p>
+<p align="center"><em>The real TIAGo in the lab: the same kind of request gets different answers depending on the risk and on whether the user is a child or an adult.<br/>
+<a href="docs/demo.mp4">▶ Watch the full demo with audio (4 min)</a></em></p>
 
 > Course project · *Human-Robot-AI Interaction*, MSc in Artificial Intelligence and Robotics, Sapienza University of Rome (A.Y. 2025/26)
 
@@ -167,7 +168,7 @@ To retrain the model from scratch, delete `exchange/rgae_checkpoint.pt` and run 
 
 ## Team
 
-Developed by **Andrea Ricci**, Federica Musumeci and Filippo Ficarola (equal contribution).
+Developed by **Andrea Ricci** with Federica Musumeci and Filippo Ficarola.
 Supervised by Luca Iocchi and Vincenzo Suriani.
 
 **My contribution:**
